@@ -1,0 +1,142 @@
+---
+import { useTranslations, getAlternateLangPath, type Lang } from '../i18n/utils';
+import Icon from './Icon.astro';
+
+interface Props {
+  lang: Lang;
+  altPath?: string;
+}
+
+const { lang, altPath } = Astro.props;
+const t = useTranslations(lang);
+const nav = t('nav');
+const common = t('common');
+
+const prefix = lang === 'en' ? '/en' : '';
+const links = [
+  { href: `${prefix}/#a-propos`, label: nav.about },
+  { href: `${prefix}/#savoir-faire`, label: nav.skills },
+  { href: `${prefix}/#realisations`, label: nav.gallery },
+  { href: `${prefix}/#contact`, label: nav.contact },
+];
+
+const altHref = altPath ?? getAlternateLangPath(Astro.url, lang === 'fr' ? 'en' : 'fr');
+---
+
+<header class="sticky top-0 z-50 border-b border-border/70 bg-cream/85 backdrop-blur-md">
+  <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3.5 sm:px-8">
+    <a href={`${prefix}/`} class="group flex items-center gap-3 shrink-0">
+      <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-steel text-copper-light shadow-card transition group-hover:bg-steel-soft">
+        <svg viewBox="0 0 32 32" class="h-5 w-5" aria-hidden="true">
+          <path d="M11 8v16M21 8v16M11 16h10" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none" />
+        </svg>
+      </span>
+      <span class="font-display leading-none">
+        <span class="block text-[0.95rem] font-semibold tracking-tight text-ink sm:text-base">Art Design</span>
+        <span class="block text-[0.7rem] italic text-ink-faint sm:text-xs">by Hirzel</span>
+      </span>
+    </a>
+
+    <nav class="hidden items-center gap-8 lg:flex" aria-label={common.mainNav}>
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class="text-sm font-medium text-ink-soft transition hover:text-copper"
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="hidden items-center gap-3 lg:flex">
+      <a
+        href={altHref}
+        class="rounded-full border border-border px-3 py-1.5 text-xs font-semibold tracking-wide text-ink-soft transition hover:border-copper hover:text-copper"
+        aria-label={common.langSwitchLabel}
+      >
+        {common.langSwitch}
+      </a>
+      <a
+        href="https://www.instagram.com/artdesignbyhirzel/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex h-9 w-9 items-center justify-center rounded-full border border-border text-ink-soft transition hover:border-copper hover:text-copper"
+        aria-label={common.instagramNewTab}
+      >
+        <Icon name="instagram" class="h-4.5 w-4.5" />
+      </a>
+      <a
+        href={`${prefix}/#contact`}
+        class="rounded-full bg-copper px-5 py-2.5 text-sm font-semibold text-cream shadow-card transition hover:bg-copper-dark hover:shadow-card-hover"
+      >
+        {nav.cta}
+      </a>
+    </div>
+
+    <button
+      id="menu-toggle"
+      type="button"
+      class="flex h-10 w-10 items-center justify-center rounded-full border border-border text-ink lg:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label={common.openMenu}
+    >
+      <Icon name="menu" class="h-5 w-5" id="icon-open" />
+      <Icon name="close" class="hidden h-5 w-5" id="icon-close" />
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="hidden border-t border-border/70 bg-cream lg:hidden">
+    <nav class="flex flex-col gap-1 px-5 py-4" aria-label={common.mobileNav}>
+      {links.map((link) => (
+        <a href={link.href} class="rounded-xl px-3 py-2.5 text-base font-medium text-ink-soft hover:bg-cream-soft hover:text-copper">
+          {link.label}
+        </a>
+      ))}
+      <div class="mt-2 flex items-center gap-3 px-3">
+        <a href={altHref} class="rounded-full border border-border px-3 py-1.5 text-xs font-semibold text-ink-soft">
+          {common.langSwitch}
+        </a>
+        <a
+          href="https://www.instagram.com/artdesignbyhirzel/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex h-9 w-9 items-center justify-center rounded-full border border-border text-ink-soft"
+          aria-label={common.instagramNewTab}
+        >
+          <Icon name="instagram" class="h-4.5 w-4.5" />
+        </a>
+      </div>
+      <a
+        href={`${prefix}/#contact`}
+        class="mt-3 rounded-full bg-copper px-5 py-3 text-center text-sm font-semibold text-cream shadow-card"
+      >
+        {nav.cta}
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = menu?.classList.toggle('hidden') === false;
+    toggle.setAttribute('aria-expanded', String(isOpen));
+    iconOpen?.classList.toggle('hidden', isOpen);
+    iconClose?.classList.toggle('hidden', !isOpen);
+  });
+
+  // Ferme le menu mobile après un clic sur un lien d'ancre.
+  menu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      toggle?.setAttribute('aria-expanded', 'false');
+      iconOpen?.classList.remove('hidden');
+      iconClose?.classList.add('hidden');
+    });
+  });
+</script>

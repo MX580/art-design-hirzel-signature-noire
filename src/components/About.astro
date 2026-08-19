@@ -1,0 +1,57 @@
+---
+import { Image } from 'astro:assets';
+import atelier from '../assets/about/atelier-large.jpg';
+import logoPlaque from '../assets/brand/logo-plaque.jpg';
+import { useTranslations, type Lang } from '../i18n/utils';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const about = t('about');
+---
+
+<section id="a-propos" class="scroll-mt-24 py-20 sm:py-28">
+  <div class="mx-auto grid max-w-7xl items-center gap-14 px-5 sm:px-8 lg:grid-cols-2 lg:gap-20">
+    <div class="relative mx-auto w-full max-w-md lg:max-w-none">
+      <div class="relative aspect-[5/4] w-full overflow-hidden rounded-xl shadow-soft ring-1 ring-ink/5">
+        <Image src={atelier} alt={about.imageAlt} class="h-full w-full object-cover" width={900} height={720} />
+      </div>
+      <div class="absolute -bottom-7 -right-6 flex items-center gap-3 rounded-lg bg-steel p-3 pr-5 shadow-card ring-4 ring-cream">
+        <div class="h-12 w-12 shrink-0 overflow-hidden rounded-md ring-1 ring-white/10">
+          <Image src={logoPlaque} alt="" class="h-full w-full object-cover" width={96} height={96} />
+        </div>
+        <div class="leading-tight">
+          <p class="font-display text-sm font-semibold text-cream">Art Design</p>
+          <p class="font-display text-xs italic text-copper-light">by Hirzel</p>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <span class="inline-flex items-center rounded-full bg-copper-tint px-4 py-1.5 text-xs font-semibold tracking-wide text-copper-dark uppercase">
+        {about.kicker}
+      </span>
+      <h2 class="mt-5 font-display text-3xl font-semibold text-ink sm:text-4xl">
+        {about.title}
+      </h2>
+
+      <div class="mt-6 space-y-4 text-base leading-relaxed text-ink-soft">
+        {about.body.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+
+      <dl class="mt-10 grid grid-cols-2 gap-4 sm:gap-5">
+        {about.facts.map((fact) => (
+          <div class="rounded-lg border border-border bg-surface px-4 py-3.5 shadow-card">
+            <dt class="text-xs font-semibold tracking-wide text-ink-faint uppercase">{fact.label}</dt>
+            <dd class="mt-1 font-display text-sm font-medium text-ink sm:text-base">{fact.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </div>
+</section>

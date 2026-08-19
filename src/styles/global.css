@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+/* Polices auto-hébergées (pas d'appel externe à Google Fonts — confidentialité + performance) */
+@import "@fontsource-variable/fraunces";
+@import "@fontsource-variable/fraunces/wght-italic.css";
+@import "@fontsource-variable/manrope";
+
+/*
+  Thème "Minéral & Cuivre"
+  Bois -> chaleur du cuivre / Acier -> minéralité de l'ardoise.
+  Palette chaude, cartes blanches, coins très arrondis, ombres douces.
+*/
+@theme {
+  --font-display: "Fraunces Variable", ui-serif, Georgia, serif;
+  --font-sans: "Manrope Variable", ui-sans-serif, system-ui, sans-serif;
+
+  /* Fonds */
+  --color-cream: #f5f2ed;
+  --color-cream-soft: #efeae1;
+  --color-surface: #fffdfa;
+
+  /* Texte */
+  --color-ink: #262624;
+  --color-ink-soft: #55504a;
+  --color-ink-faint: #8a8378;
+
+  /* Acier */
+  --color-steel: #33343a;
+  --color-steel-soft: #52545c;
+  --color-steel-mist: #dfe0e3;
+
+  /* Cuivre (accent) */
+  --color-copper: #b8733f;
+  --color-copper-dark: #935c31;
+  --color-copper-light: #d69761;
+  --color-copper-tint: #f3e6d8;
+  --color-copper-tint-soft: #f8efe5;
+
+  /* États */
+  --color-success: #4c7a54;
+  --color-error: #b8503f;
+
+  --color-border: #e5ddd0;
+
+  /* Rayons très arrondis, façon "cartes" */
+  --radius-sm: 0.875rem;
+  --radius-md: 1.25rem;
+  --radius-lg: 1.75rem;
+  --radius-xl: 2.5rem;
+
+  --shadow-card: 0 1px 2px 0 rgba(38, 38, 36, 0.04), 0 12px 28px -10px rgba(38, 38, 36, 0.14);
+  --shadow-card-hover: 0 4px 10px 0 rgba(38, 38, 36, 0.06), 0 24px 48px -14px rgba(38, 38, 36, 0.22);
+  --shadow-soft: 0 8px 30px -12px rgba(38, 38, 36, 0.18);
+
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-marquee: marquee 32s linear infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(1.25rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+  ::selection {
+    background-color: var(--color-copper);
+    color: var(--color-surface);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-copper);
+    outline-offset: 3px;
+    border-radius: 0.25rem;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

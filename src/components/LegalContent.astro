@@ -1,0 +1,41 @@
+---
+interface LegalSection {
+  heading: string;
+  body: readonly string[];
+}
+
+interface Props {
+  title: string;
+  updated: string;
+  intro: string;
+  sections: readonly LegalSection[];
+}
+
+const { title, updated, intro, sections } = Astro.props;
+
+const updatedDate = new Date('2026-08-19').toLocaleDateString(
+  Astro.currentLocale === 'en' ? 'en-CH' : 'fr-CH',
+  { year: 'numeric', month: 'long', day: 'numeric' }
+);
+---
+
+<section class="py-20 sm:py-28">
+  <div class="mx-auto max-w-3xl px-5 sm:px-8">
+    <h1 class="font-display text-3xl font-semibold text-ink sm:text-4xl">{title}</h1>
+    <p class="mt-2 text-sm text-ink-faint">{updated} {updatedDate}</p>
+    <p class="mt-6 text-base leading-relaxed text-ink-soft">{intro}</p>
+
+    <div class="mt-10 space-y-8">
+      {sections.map((section) => (
+        <div class="rounded-lg bg-surface p-6 shadow-card ring-1 ring-ink/5 sm:p-8">
+          <h2 class="font-display text-lg font-semibold text-ink">{section.heading}</h2>
+          <div class="mt-3 space-y-2 text-sm leading-relaxed text-ink-soft">
+            {section.body.map((line) => (
+              <p>{line}</p>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

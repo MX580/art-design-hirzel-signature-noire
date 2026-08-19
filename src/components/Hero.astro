@@ -1,0 +1,92 @@
+---
+import { Image } from 'astro:assets';
+import heroMain from '../assets/gallery/table-bois-metal.jpg';
+import heroAccent from '../assets/about/mains-finition.jpg';
+import { useTranslations, type Lang } from '../i18n/utils';
+import Icon from './Icon.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const hero = t('hero');
+const prefix = lang === 'en' ? '/en' : '';
+---
+
+<section class="relative overflow-hidden pt-14 pb-24 sm:pt-20 sm:pb-32">
+  <!-- Halos décoratifs -->
+  <div class="pointer-events-none absolute -top-24 -right-32 h-96 w-96 rounded-full bg-copper/20 blur-3xl" aria-hidden="true"></div>
+  <div class="pointer-events-none absolute top-1/3 -left-40 h-96 w-96 rounded-full bg-steel/10 blur-3xl" aria-hidden="true"></div>
+
+  <div class="relative mx-auto grid max-w-7xl items-center gap-16 px-5 sm:px-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
+    <div class="animate-fade-up">
+      <span class="inline-flex items-center gap-2 rounded-full border border-copper/30 bg-copper-tint-soft px-4 py-1.5 text-xs font-semibold tracking-wide text-copper-dark uppercase">
+        <Icon name="sparkles" class="h-3.5 w-3.5" />
+        {hero.kicker}
+      </span>
+
+      <h1 class="mt-6 max-w-xl font-display text-4xl leading-[1.08] font-semibold text-ink sm:text-5xl lg:text-[3.4rem]">
+        {hero.title}
+      </h1>
+
+      <p class="mt-5 max-w-lg border-l-2 border-copper/50 pl-4 font-display text-lg italic text-ink-soft">
+        {hero.quote}
+      </p>
+
+      <p class="mt-6 max-w-lg text-base leading-relaxed text-ink-soft sm:text-lg">
+        {hero.lead}
+      </p>
+
+      <div class="mt-9 flex flex-wrap items-center gap-4">
+        <a
+          href={`${prefix}/#realisations`}
+          class="group inline-flex items-center gap-2 rounded-full bg-copper px-6 py-3.5 text-sm font-semibold text-cream shadow-card transition hover:bg-copper-dark hover:shadow-card-hover"
+        >
+          {hero.ctaPrimary}
+          <Icon name="arrow-right" class="h-4 w-4 transition group-hover:translate-x-0.5" />
+        </a>
+        <a
+          href={`${prefix}/#contact`}
+          class="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-surface px-6 py-3.5 text-sm font-semibold text-ink transition hover:border-copper hover:text-copper"
+        >
+          {hero.ctaSecondary}
+        </a>
+      </div>
+    </div>
+
+    <div class="relative mx-auto w-full max-w-md lg:max-w-none">
+      <div class="relative aspect-[4/3] w-full overflow-hidden rounded-xl shadow-soft ring-1 ring-ink/5">
+        <Image
+          src={heroMain}
+          alt={t('gallery').items[0].alt}
+          class="h-full w-full object-cover"
+          width={800}
+          height={600}
+          loading="eager"
+        />
+      </div>
+
+      <div class="absolute -bottom-10 -left-6 w-32 overflow-hidden rounded-lg shadow-card ring-4 ring-cream sm:w-40">
+        <Image
+          src={heroAccent}
+          alt=""
+          class="aspect-square w-full object-cover"
+          width={320}
+          height={320}
+        />
+      </div>
+
+      <div class="absolute -top-6 -right-4 hidden max-w-[12rem] rounded-lg bg-surface p-4 shadow-card sm:block">
+        <div class="flex items-center gap-2 text-copper">
+          <Icon name="layers" class="h-4 w-4" />
+          <span class="text-xs font-semibold tracking-wide uppercase">{hero.materialsBadge}</span>
+        </div>
+        <p class="mt-1.5 text-xs leading-relaxed text-ink-faint">
+          {hero.materialsNote}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

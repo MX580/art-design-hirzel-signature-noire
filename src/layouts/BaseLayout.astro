@@ -1,0 +1,97 @@
+---
+import '../styles/global.css';
+import { useTranslations, getAlternateLangPath, type Lang } from '../i18n/utils';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  description?: string;
+  /**
+   * Chemin explicite vers l'équivalent de cette page dans l'autre langue.
+   * Nécessaire quand les URLs ne se contentent pas d'un préfixe /en (ex.
+   * /mentions-legales <-> /en/legal-notice). Sans cette prop, le chemin est
+   * déduit automatiquement (fonctionne pour la page d'accueil).
+   */
+  altPath?: string;
+}
+
+const { lang, title, description, altPath } = Astro.props;
+const t = useTranslations(lang);
+const meta = t('meta');
+
+const pageTitle = title ?? meta.title;
+const pageDescription = description ?? meta.description;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const computedAltPath = altPath ?? getAlternateLangPath(Astro.url, lang === 'fr' ? 'en' : 'fr');
+const frPath = lang === 'fr' ? Astro.url.pathname : computedAltPath;
+const enPath = lang === 'en' ? Astro.url.pathname : computedAltPath;
+const ogImageURL = new URL('/og-image.jpg', Astro.site);
+
+// Données structurées (JSON-LD) — LocalBusiness / Artisan.
+// Coordonnées à confirmer avec David avant mise en ligne (voir README.md).
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'Art Design by Hirzel',
+  founder: 'David Hirzel',
+  description: meta.description,
+  image: ogImageURL.toString(),
+  url: Astro.site?.toString(),
+  address: {
+    '@type': 'PostalAddress',
+    addressRegion: 'Vaud',
+    addressCountry: 'CH',
+  },
+  areaServed: ['Genève', 'Vaud', 'Suisse romande'],
+  sameAs: ['https://www.instagram.com/artdesignbyhirzel/'],
+};
+---
+
+<!doctype html>
+<html lang={lang} class="scroll-pt-24">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f2ed" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <link rel="alternate" hreflang="fr" href={new URL(frPath, Astro.site)} />
+    <link rel="alternate" hreflang="en" href={new URL(enPath, Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL(frPath, Astro.site)} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Art Design by Hirzel" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:locale" content={lang === 'fr' ? 'fr_CH' : 'en_US'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} is:inline />
+  </head>
+  <body id="top" class="bg-cream text-ink font-sans antialiased">
+    <a
+      href="#contenu"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-full focus:bg-steel focus:px-5 focus:py-3 focus:text-cream focus:shadow-soft"
+    >
+      {t('common').skipToContent}
+    </a>
+    <Header lang={lang} altPath={computedAltPath} />
+    <main id="contenu">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>

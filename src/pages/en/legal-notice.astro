@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegalContent from '../../components/LegalContent.astro';
+import { useTranslations } from '../../i18n/utils';
+
+const t = useTranslations('en');
+const legal = t('legalNotice');
+---
+
+<BaseLayout lang="en" title={`${legal.title} — Art Design by Hirzel`} description={legal.intro} altPath="/mentions-legales">
+  <LegalContent title={legal.title} updated={legal.updated} intro={legal.intro} sections={legal.sections} />
+</BaseLayout>

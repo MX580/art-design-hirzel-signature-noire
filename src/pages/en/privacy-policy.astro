@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import LegalContent from '../../components/LegalContent.astro';
+import { useTranslations } from '../../i18n/utils';
+
+const t = useTranslations('en');
+const privacy = t('privacy');
+---
+
+<BaseLayout lang="en" title={`${privacy.title} — Art Design by Hirzel`} description={privacy.intro} altPath="/confidentialite">
+  <LegalContent title={privacy.title} updated={privacy.updated} intro={privacy.intro} sections={privacy.sections} />
+</BaseLayout>

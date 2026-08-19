@@ -1,0 +1,59 @@
+---
+import { useTranslations, type Lang } from '../i18n/utils';
+import Icon from './Icon.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const skills = t('skills');
+
+const icons = ['table', 'board', 'cabinet', 'flame', 'layers', 'sparkles'] as const;
+---
+
+<section id="savoir-faire" class="scroll-mt-24 bg-cream-soft py-20 sm:py-28">
+  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+    <div class="max-w-2xl">
+      <span class="inline-flex items-center rounded-full bg-copper-tint px-4 py-1.5 text-xs font-semibold tracking-wide text-copper-dark uppercase">
+        {skills.kicker}
+      </span>
+      <h2 class="mt-5 font-display text-3xl font-semibold text-ink sm:text-4xl">
+        {skills.title}
+      </h2>
+      <p class="mt-4 text-base leading-relaxed text-ink-soft sm:text-lg">
+        {skills.lead}
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {skills.items.map((item, i) => {
+        const isLast = i === skills.items.length - 1;
+        return (
+          <div
+            class:list={[
+              'group rounded-lg p-6 shadow-card ring-1 transition hover:-translate-y-1 hover:shadow-card-hover sm:p-7',
+              isLast ? 'bg-steel ring-steel' : 'bg-surface ring-ink/5',
+            ]}
+          >
+            <div
+              class:list={[
+                'flex h-12 w-12 items-center justify-center rounded-md transition group-hover:scale-105',
+                isLast ? 'bg-copper text-cream' : 'bg-copper-tint text-copper',
+              ]}
+            >
+              <Icon name={icons[i]} class="h-6 w-6" />
+            </div>
+            <h3 class:list={['mt-5 font-display text-lg font-semibold', isLast ? 'text-cream' : 'text-ink']}>
+              {item.title}
+            </h3>
+            <p class:list={['mt-2 text-sm leading-relaxed', isLast ? 'text-cream/75' : 'text-ink-soft']}>
+              {item.description}
+            </p>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</section>

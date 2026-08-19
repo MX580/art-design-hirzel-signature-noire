@@ -1,0 +1,78 @@
+---
+import { useTranslations, type Lang } from '../i18n/utils';
+import Icon from './Icon.astro';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const nav = t('nav');
+const footer = t('footer');
+const common = t('common');
+
+const prefix = lang === 'en' ? '/en' : '';
+const legalHref = lang === 'en' ? '/en/legal-notice' : '/mentions-legales';
+const privacyHref = lang === 'en' ? '/en/privacy-policy' : '/confidentialite';
+const year = new Date().getFullYear();
+
+const links = [
+  { href: `${prefix}/#a-propos`, label: nav.about },
+  { href: `${prefix}/#savoir-faire`, label: nav.skills },
+  { href: `${prefix}/#realisations`, label: nav.gallery },
+  { href: `${prefix}/#contact`, label: nav.contact },
+];
+---
+
+<footer class="border-t border-border/70 bg-cream-soft">
+  <div class="mx-auto max-w-7xl px-5 py-14 sm:px-8">
+    <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
+      <div>
+        <a href={`${prefix}/`} class="flex items-center gap-3">
+          <span class="flex h-9 w-9 items-center justify-center rounded-md bg-steel text-copper-light">
+            <svg viewBox="0 0 32 32" class="h-5 w-5" aria-hidden="true">
+              <path d="M11 8v16M21 8v16M11 16h10" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none" />
+            </svg>
+          </span>
+          <span class="font-display leading-none">
+            <span class="block text-base font-semibold text-ink">Art Design</span>
+            <span class="block text-xs italic text-ink-faint">by Hirzel</span>
+          </span>
+        </a>
+        <p class="mt-4 max-w-xs text-sm leading-relaxed text-ink-soft">{footer.tagline}</p>
+        <a
+          href="https://www.instagram.com/artdesignbyhirzel/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-5 inline-flex h-10 w-10 items-center justify-center rounded-full border border-border text-ink-soft transition hover:border-copper hover:text-copper"
+          aria-label={common.instagramNewTab}
+        >
+          <Icon name="instagram" class="h-4.5 w-4.5" />
+        </a>
+      </div>
+
+      <div>
+        <p class="text-xs font-semibold tracking-wide text-ink-faint uppercase">{footer.nav}</p>
+        <ul class="mt-4 space-y-2.5">
+          {links.map((link) => (
+            <li><a href={link.href} class="text-sm text-ink-soft transition hover:text-copper">{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <p class="text-xs font-semibold tracking-wide text-ink-faint uppercase">{footer.legal}</p>
+        <ul class="mt-4 space-y-2.5">
+          <li><a href={legalHref} class="text-sm text-ink-soft transition hover:text-copper">{footer.legalNotice}</a></li>
+          <li><a href={privacyHref} class="text-sm text-ink-soft transition hover:text-copper">{footer.privacy}</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 flex flex-col-reverse items-center justify-between gap-4 border-t border-border/70 pt-6 sm:flex-row">
+      <p class="text-xs text-ink-faint">© {year} Art Design by Hirzel. {footer.rights}</p>
+      <a href="#top" class="text-xs font-medium text-ink-soft transition hover:text-copper">{footer.backToTop} ↑</a>
+    </div>
+  </div>
+</footer>
