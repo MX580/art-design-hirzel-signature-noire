@@ -13,47 +13,33 @@ const skills = t('skills');
 const icons = ['table', 'board', 'cabinet', 'flame', 'layers', 'sparkles'] as const;
 ---
 
-<section id="savoir-faire" class="scroll-mt-24 bg-cream-soft py-20 sm:py-28">
-  <div class="mx-auto max-w-7xl px-5 sm:px-8">
-    <div class="max-w-2xl">
-      <span class="inline-flex items-center rounded-full bg-copper-tint px-4 py-1.5 text-xs font-semibold tracking-wide text-copper-dark uppercase">
-        {skills.kicker}
-      </span>
-      <h2 class="mt-5 font-display text-3xl font-semibold text-ink sm:text-4xl">
-        {skills.title}
-      </h2>
-      <p class="mt-4 text-base leading-relaxed text-ink-soft sm:text-lg">
-        {skills.lead}
-      </p>
-    </div>
+<section id="savoir-faire" class="scroll-mt-24 border-b border-ink">
+  <div class="mx-auto max-w-[1400px] px-5 py-16 sm:px-8 sm:py-20">
+    <div class="grid gap-8 lg:grid-cols-12 lg:gap-8">
+      <div class="lg:col-span-4">
+        <span class="text-xs font-semibold tracking-[0.14em] text-copper uppercase">03 — {skills.kicker}</span>
+        <h2 class="mt-3 font-display text-3xl leading-[1.02] font-extrabold tracking-tight text-ink sm:text-4xl">
+          {skills.title}
+        </h2>
+        <p class="mt-4 max-w-sm text-base leading-relaxed text-ink-soft">
+          {skills.lead}
+        </p>
+      </div>
 
-    <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      {skills.items.map((item, i) => {
-        const isLast = i === skills.items.length - 1;
-        return (
-          <div
-            class:list={[
-              'group rounded-lg p-6 shadow-card ring-1 transition hover:-translate-y-1 hover:shadow-card-hover sm:p-7',
-              isLast ? 'bg-steel ring-steel' : 'bg-surface ring-ink/5',
-            ]}
-          >
-            <div
-              class:list={[
-                'flex h-12 w-12 items-center justify-center rounded-md transition group-hover:scale-105',
-                isLast ? 'bg-copper text-cream' : 'bg-copper-tint text-copper',
-              ]}
-            >
-              <Icon name={icons[i]} class="h-6 w-6" />
-            </div>
-            <h3 class:list={['mt-5 font-display text-lg font-semibold', isLast ? 'text-cream' : 'text-ink']}>
+      <div class="border-t border-ink lg:col-span-8">
+        {skills.items.map((item, i) => (
+          <div class="group grid grid-cols-[3.5rem_2.5rem_1fr] items-start gap-4 border-b border-border py-6 sm:grid-cols-[3.5rem_2.5rem_1fr_14rem] sm:items-center">
+            <span class="font-display text-sm font-semibold text-ink-faint">{String(i + 1).padStart(2, '0')}</span>
+            <Icon name={icons[i]} class="h-5 w-5 text-copper" />
+            <h3 class="font-display text-lg font-bold tracking-tight text-ink sm:text-xl">
               {item.title}
             </h3>
-            <p class:list={['mt-2 text-sm leading-relaxed', isLast ? 'text-cream/75' : 'text-ink-soft']}>
+            <p class="col-span-3 text-sm leading-relaxed text-ink-soft sm:col-span-1">
               {item.description}
             </p>
           </div>
-        );
-      })}
+        ))}
+      </div>
     </div>
   </div>
 </section>

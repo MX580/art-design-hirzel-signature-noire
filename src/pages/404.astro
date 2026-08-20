@@ -1,24 +1,21 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Icon from '../components/Icon.astro';
 ---
 
 <BaseLayout lang="fr" title="Page introuvable — Art Design by Hirzel">
-  <section class="flex min-h-[60vh] items-center py-20">
-    <div class="mx-auto max-w-lg px-5 text-center sm:px-8">
-      <span class="inline-flex h-16 w-16 items-center justify-center rounded-xl bg-steel text-copper-light">
-        <Icon name="board" class="h-8 w-8" />
-      </span>
-      <h1 class="mt-6 font-display text-3xl font-semibold text-ink sm:text-4xl">Page introuvable</h1>
-      <p class="mt-3 text-base leading-relaxed text-ink-soft">
+  <section class="flex min-h-[60vh] items-center justify-center border-b border-ink px-5 py-20 text-center sm:px-8">
+    <div class="max-w-lg">
+      <span class="font-mono text-xs font-semibold tracking-[0.14em] text-copper uppercase">Erreur 404</span>
+      <h1 class="mt-3 font-display text-4xl font-extrabold tracking-tight text-ink sm:text-5xl">Page introuvable</h1>
+      <p class="mt-4 text-base leading-relaxed text-ink-soft">
         Cette page n'existe pas ou plus.
         <span class="block text-sm text-ink-faint">(This page could not be found.)</span>
       </p>
-      <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
-        <a href="/" class="rounded-full bg-copper px-6 py-3 text-sm font-semibold text-cream shadow-card transition hover:bg-copper-dark">
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+        <a href="/" class="border border-ink bg-ink px-6 py-3 text-xs font-semibold tracking-[0.12em] text-paper uppercase transition hover:border-copper hover:bg-copper">
           Retour à l'accueil
         </a>
-        <a href="/en/" class="rounded-full border border-ink/15 bg-surface px-6 py-3 text-sm font-semibold text-ink transition hover:border-copper hover:text-copper">
+        <a href="/en/" class="border border-ink px-6 py-3 text-xs font-semibold tracking-[0.12em] text-ink uppercase transition hover:border-copper hover:text-copper">
           English homepage
         </a>
       </div>

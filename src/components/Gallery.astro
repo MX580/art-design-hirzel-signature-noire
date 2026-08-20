@@ -17,31 +17,18 @@ const { lang } = Astro.props;
 const t = useTranslations(lang);
 const gallery = t('gallery');
 
-// Dimensions cible par image (reflète le cadrage réel de chaque photo :
-// la table bois/métal a été recadrée en format paysage 4:3, les autres
-// gardent leur cadrage portrait d'origine — la variété de hauteurs anime
-// naturellement la grille en mosaïque ci-dessous).
-const images = [
-  { src: tableBoisMetal, width: 640, height: 480 },
-  { src: plancheEndGrain, width: 640, height: 480 },
-  { src: planchesDuo, width: 640, height: 800 },
-  { src: braseroFeu, width: 640, height: 800 },
-  { src: structureAcier, width: 640, height: 720 },
-  { src: mainsFinition, width: 640, height: 800 },
-];
+const images = [tableBoisMetal, plancheEndGrain, planchesDuo, braseroFeu, structureAcier, mainsFinition];
 ---
 
-<section id="realisations" class="scroll-mt-24 py-20 sm:py-28">
-  <div class="mx-auto max-w-7xl px-5 sm:px-8">
+<section id="realisations" class="scroll-mt-24 border-b border-ink">
+  <div class="mx-auto max-w-[1400px] px-5 py-16 sm:px-8 sm:py-20">
     <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-      <div class="max-w-2xl">
-        <span class="inline-flex items-center rounded-full bg-copper-tint px-4 py-1.5 text-xs font-semibold tracking-wide text-copper-dark uppercase">
-          {gallery.kicker}
-        </span>
-        <h2 class="mt-5 font-display text-3xl font-semibold text-ink sm:text-4xl">
+      <div class="max-w-xl">
+        <span class="text-xs font-semibold tracking-[0.14em] text-copper uppercase">04 — {gallery.kicker}</span>
+        <h2 class="mt-3 font-display text-3xl leading-[1.02] font-extrabold tracking-tight text-ink sm:text-4xl">
           {gallery.title}
         </h2>
-        <p class="mt-4 text-base leading-relaxed text-ink-soft sm:text-lg">
+        <p class="mt-4 text-base leading-relaxed text-ink-soft">
           {gallery.lead}
         </p>
       </div>
@@ -50,28 +37,30 @@ const images = [
         href="https://www.instagram.com/artdesignbyhirzel/"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex shrink-0 items-center gap-2 self-start rounded-full border border-ink/15 bg-surface px-5 py-3 text-sm font-semibold text-ink shadow-card transition hover:border-copper hover:text-copper"
+        class="inline-flex shrink-0 items-center gap-2 self-start border border-ink px-5 py-3 text-xs font-semibold tracking-[0.1em] text-ink uppercase transition hover:border-copper hover:text-copper"
       >
         <Icon name="instagram" class="h-4 w-4" />
         {gallery.instagramCta}
-        <Icon name="external-link" class="h-3.5 w-3.5 opacity-60" />
       </a>
     </div>
 
-    <div class="mt-12 columns-2 gap-5 md:columns-3 [&>*]:mb-5">
+    <div class="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 border-t border-ink pt-10 sm:grid-cols-3">
       {gallery.items.map((item, i) => (
-        <figure class="group relative overflow-hidden rounded-xl shadow-card ring-1 ring-ink/5 break-inside-avoid">
-          <Image
-            src={images[i].src}
-            alt={item.alt}
-            class="w-full object-cover transition duration-500 group-hover:scale-[1.04]"
-            width={images[i].width}
-            height={images[i].height}
-            loading={i < 2 ? 'eager' : 'lazy'}
-          />
-          <div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-steel/85 via-steel/10 to-transparent p-4 pt-10">
-            <figcaption class="text-sm font-medium text-cream">{item.caption}</figcaption>
+        <figure>
+          <div class="relative aspect-[4/5] w-full overflow-hidden border border-border">
+            <Image
+              src={images[i]}
+              alt={item.alt}
+              class="h-full w-full object-cover grayscale-[35%] contrast-[1.08] transition duration-500 hover:grayscale-0"
+              width={480}
+              height={600}
+              loading={i < 3 ? 'eager' : 'lazy'}
+            />
           </div>
+          <figcaption class="mt-3 flex items-baseline gap-2">
+            <span class="font-mono text-xs text-copper">{String(i + 1).padStart(2, '0')}</span>
+            <span class="text-xs font-medium tracking-wide text-ink-soft uppercase">{item.caption}</span>
+          </figcaption>
         </figure>
       ))}
     </div>

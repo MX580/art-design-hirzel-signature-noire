@@ -23,35 +23,27 @@ const links = [
 const altHref = altPath ?? getAlternateLangPath(Astro.url, lang === 'fr' ? 'en' : 'fr');
 ---
 
-<header class="sticky top-0 z-50 border-b border-border/70 bg-cream/85 backdrop-blur-md">
-  <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-3.5 sm:px-8">
-    <a href={`${prefix}/`} class="group flex items-center gap-3 shrink-0">
-      <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-steel text-copper-light shadow-card transition group-hover:bg-steel-soft">
-        <svg viewBox="0 0 32 32" class="h-5 w-5" aria-hidden="true">
-          <path d="M11 8v16M21 8v16M11 16h10" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none" />
-        </svg>
-      </span>
-      <span class="font-display leading-none">
-        <span class="block text-[0.95rem] font-semibold tracking-tight text-ink sm:text-base">Art Design</span>
-        <span class="block text-[0.7rem] italic text-ink-faint sm:text-xs">by Hirzel</span>
+<header class="sticky top-0 z-50 border-b border-ink bg-cream/95 backdrop-blur-sm">
+  <div class="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-5 py-4 sm:px-8">
+    <a href={`${prefix}/`} class="shrink-0">
+      <span class="font-display text-base font-extrabold tracking-tight text-ink sm:text-lg">
+        ART DESIGN <span class="font-normal text-ink-soft">BY HIRZEL</span>
       </span>
     </a>
 
-    <nav class="hidden items-center gap-8 lg:flex" aria-label={common.mainNav}>
-      {links.map((link) => (
-        <a
-          href={link.href}
-          class="text-sm font-medium text-ink-soft transition hover:text-copper"
-        >
-          {link.label}
+    <nav class="hidden items-center gap-9 lg:flex" aria-label={common.mainNav}>
+      {links.map((link, i) => (
+        <a href={link.href} class="group flex items-center gap-2 text-xs font-semibold tracking-[0.12em] text-ink uppercase">
+          <span class="text-copper">0{i + 1}</span>
+          <span class="border-b border-transparent group-hover:border-ink">{link.label}</span>
         </a>
       ))}
     </nav>
 
-    <div class="hidden items-center gap-3 lg:flex">
+    <div class="hidden items-center gap-6 lg:flex">
       <a
         href={altHref}
-        class="rounded-full border border-border px-3 py-1.5 text-xs font-semibold tracking-wide text-ink-soft transition hover:border-copper hover:text-copper"
+        class="text-xs font-semibold tracking-[0.12em] text-ink-soft uppercase hover:text-ink"
         aria-label={common.langSwitchLabel}
       >
         {common.langSwitch}
@@ -60,14 +52,14 @@ const altHref = altPath ?? getAlternateLangPath(Astro.url, lang === 'fr' ? 'en' 
         href="https://www.instagram.com/artdesignbyhirzel/"
         target="_blank"
         rel="noopener noreferrer"
-        class="flex h-9 w-9 items-center justify-center rounded-full border border-border text-ink-soft transition hover:border-copper hover:text-copper"
+        class="text-ink-soft transition hover:text-copper"
         aria-label={common.instagramNewTab}
       >
-        <Icon name="instagram" class="h-4.5 w-4.5" />
+        <Icon name="instagram" class="h-5 w-5" />
       </a>
       <a
         href={`${prefix}/#contact`}
-        class="rounded-full bg-copper px-5 py-2.5 text-sm font-semibold text-cream shadow-card transition hover:bg-copper-dark hover:shadow-card-hover"
+        class="border border-ink bg-ink px-5 py-2.5 text-xs font-semibold tracking-[0.12em] text-paper uppercase transition hover:border-copper hover:bg-copper"
       >
         {nav.cta}
       </a>
@@ -76,7 +68,7 @@ const altHref = altPath ?? getAlternateLangPath(Astro.url, lang === 'fr' ? 'en' 
     <button
       id="menu-toggle"
       type="button"
-      class="flex h-10 w-10 items-center justify-center rounded-full border border-border text-ink lg:hidden"
+      class="flex h-9 w-9 items-center justify-center text-ink lg:hidden"
       aria-expanded="false"
       aria-controls="mobile-menu"
       aria-label={common.openMenu}
@@ -86,30 +78,31 @@ const altHref = altPath ?? getAlternateLangPath(Astro.url, lang === 'fr' ? 'en' 
     </button>
   </div>
 
-  <div id="mobile-menu" class="hidden border-t border-border/70 bg-cream lg:hidden">
+  <div id="mobile-menu" class="hidden border-t border-ink bg-cream lg:hidden">
     <nav class="flex flex-col gap-1 px-5 py-4" aria-label={common.mobileNav}>
-      {links.map((link) => (
-        <a href={link.href} class="rounded-xl px-3 py-2.5 text-base font-medium text-ink-soft hover:bg-cream-soft hover:text-copper">
+      {links.map((link, i) => (
+        <a href={link.href} class="flex items-center gap-3 border-b border-border py-3 text-sm font-semibold tracking-wide text-ink uppercase">
+          <span class="text-copper">0{i + 1}</span>
           {link.label}
         </a>
       ))}
-      <div class="mt-2 flex items-center gap-3 px-3">
-        <a href={altHref} class="rounded-full border border-border px-3 py-1.5 text-xs font-semibold text-ink-soft">
+      <div class="mt-3 flex items-center gap-5">
+        <a href={altHref} class="text-xs font-semibold tracking-[0.12em] text-ink-soft uppercase">
           {common.langSwitch}
         </a>
         <a
           href="https://www.instagram.com/artdesignbyhirzel/"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex h-9 w-9 items-center justify-center rounded-full border border-border text-ink-soft"
+          class="text-ink-soft"
           aria-label={common.instagramNewTab}
         >
-          <Icon name="instagram" class="h-4.5 w-4.5" />
+          <Icon name="instagram" class="h-5 w-5" />
         </a>
       </div>
       <a
         href={`${prefix}/#contact`}
-        class="mt-3 rounded-full bg-copper px-5 py-3 text-center text-sm font-semibold text-cream shadow-card"
+        class="mt-4 border border-ink bg-ink px-5 py-3 text-center text-xs font-semibold tracking-[0.12em] text-paper uppercase"
       >
         {nav.cta}
       </a>
@@ -130,7 +123,6 @@ const altHref = altPath ?? getAlternateLangPath(Astro.url, lang === 'fr' ? 'en' 
     iconClose?.classList.toggle('hidden', !isOpen);
   });
 
-  // Ferme le menu mobile après un clic sur un lien d'ancre.
   menu?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
       menu.classList.add('hidden');
