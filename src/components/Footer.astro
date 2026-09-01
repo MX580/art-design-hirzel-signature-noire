@@ -11,9 +11,10 @@ const t = useTranslations(lang);
 const nav = t('nav');
 const footer = t('footer');
 
-const prefix = lang === 'en' ? '/en' : '';
-const legalHref = lang === 'en' ? '/en/legal-notice' : '/mentions-legales';
-const privacyHref = lang === 'en' ? '/en/privacy-policy' : '/confidentialite';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const prefix = base + (lang === 'en' ? '/en' : '');
+const legalHref = base + (lang === 'en' ? '/en/legal-notice' : '/mentions-legales');
+const privacyHref = base + (lang === 'en' ? '/en/privacy-policy' : '/confidentialite');
 const year = new Date().getFullYear();
 
 const links = [

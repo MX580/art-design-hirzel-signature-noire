@@ -12,7 +12,8 @@ const t = useTranslations(lang);
 const nav = t('nav');
 const common = t('common');
 
-const prefix = lang === 'en' ? '/en' : '';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const prefix = base + (lang === 'en' ? '/en' : '');
 const links = [
   { href: `${prefix}/#a-propos`, label: nav.about },
   { href: `${prefix}/#savoir-faire`, label: nav.skills },
