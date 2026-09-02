@@ -13,13 +13,13 @@ const about = t('about');
 ---
 
 <section id="a-propos" class="scroll-mt-24 bg-black">
-  <div class="mx-auto max-w-[1600px] px-6 py-24 sm:px-10 sm:py-32">
+  <div class="mx-auto max-w-[1600px] px-6 py-14 sm:px-10 sm:py-32">
     <div class="flex items-center gap-4">
       <span class="h-px w-12 bg-copper" aria-hidden="true"></span>
       <span class="text-[0.6rem] font-medium tracked text-copper-light">02 — {about.kicker}</span>
     </div>
 
-    <div class="mt-12 grid gap-14 lg:grid-cols-12 lg:gap-16">
+    <div class="mt-8 grid gap-10 sm:mt-12 sm:gap-14 lg:grid-cols-12 lg:gap-16">
       <div class="lg:col-span-5">
         <h2 class="font-display text-3xl leading-[1.02] font-medium tracking-[-0.03em] text-paper sm:text-5xl">
           {about.title}
@@ -54,7 +54,7 @@ const about = t('about');
       {about.facts.map((fact, i) => (
         <div
           class:list={[
-            'border-t border-white/10 px-2 py-10 sm:py-14',
+            'border-t border-white/10 px-2 py-6 sm:py-14',
             i % 2 === 1 ? 'border-l pl-6' : '',
             i > 1 ? 'lg:border-l lg:pl-6' : '',
             i === 1 ? 'lg:border-l' : '',

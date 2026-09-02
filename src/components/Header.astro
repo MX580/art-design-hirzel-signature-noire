@@ -24,66 +24,82 @@ const links = [
 const altHref = altPath ?? getAlternateLangPath(Astro.url, lang === 'fr' ? 'en' : 'fr');
 ---
 
-<header class="fixed top-0 right-[var(--band)] left-[var(--band)] z-50 bg-gradient-to-b from-black/85 to-transparent">
-  <div class="relative mx-auto flex max-w-[1600px] items-center justify-between px-2 py-6 sm:px-10">
-    <button
-      id="menu-toggle"
-      type="button"
-      class="flex items-center gap-3 text-paper transition hover:text-copper-light"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-      aria-label={common.openMenu}
-    >
-      <span id="icon-open" class="flex flex-col gap-[5px]">
-        <span class="block h-px w-6 bg-current"></span>
-        <span class="block h-px w-6 bg-current"></span>
-      </span>
-      <Icon name="close" class="hidden h-5 w-5" id="icon-close" />
-    </button>
-
-    <a
-      href={`${prefix}/`}
-      class="absolute left-1/2 -translate-x-1/2 text-center font-display text-base leading-[1.15] font-semibold tracking-[0.12em] text-paper uppercase sm:text-2xl sm:leading-none sm:tracking-[0.14em] sm:whitespace-nowrap lg:text-4xl"
-    >
-      <span class="block sm:inline">Art Design</span>{' '}
-      <span class="block sm:inline">by Hirzel</span>
-    </a>
-
-    <div class="flex items-center gap-4 sm:gap-6">
-      <a
-        href={altHref}
-        class="text-[0.65rem] font-medium tracked text-paper/70 transition hover:text-copper-light"
-        aria-label={common.langSwitchLabel}
+<header id="site-header" class="fixed inset-x-0 top-0 z-50">
+  <!-- Bandeau : noir plein en mobile, dégradé sur la photo en desktop -->
+  <div
+    id="header-bar"
+    class="relative z-10 bg-black sm:bg-gradient-to-b sm:from-black/85 sm:to-transparent"
+  >
+    <div class="relative mx-auto flex max-w-[1600px] items-center justify-between px-4 py-5 sm:px-10 sm:py-6">
+      <button
+        id="menu-toggle"
+        type="button"
+        class="flex items-center text-paper transition hover:text-copper-light"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label={common.openMenu}
       >
-        {common.langSwitch}
-      </a>
+        <span id="icon-open" class="flex flex-col gap-[5px]">
+          <span class="block h-px w-6 bg-current"></span>
+          <span class="block h-px w-6 bg-current"></span>
+        </span>
+        <Icon name="close" class="hidden h-5 w-5" id="icon-close" />
+      </button>
+
       <a
-        href="https://www.instagram.com/artdesignbyhirzel/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-paper/70 transition hover:text-copper-light"
-        aria-label={common.instagramNewTab}
+        href={`${prefix}/`}
+        class="absolute left-1/2 -translate-x-1/2 text-center font-display text-base leading-[1.15] font-semibold tracking-[0.12em] text-paper uppercase sm:text-2xl sm:leading-none sm:tracking-[0.14em] sm:whitespace-nowrap lg:text-4xl"
       >
-        <Icon name="instagram" class="h-4 w-4" />
+        <span class="block sm:inline">Art Design</span>{' '}
+        <span class="block sm:inline">by Hirzel</span>
       </a>
+
+      <div class="flex items-center gap-4 sm:gap-6">
+        <a
+          href={altHref}
+          class="text-[0.65rem] font-medium tracked text-paper/70 transition hover:text-copper-light"
+          aria-label={common.langSwitchLabel}
+        >
+          {common.langSwitch}
+        </a>
+        <a
+          href="https://www.instagram.com/artdesignbyhirzel/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-paper/70 transition hover:text-copper-light"
+          aria-label={common.instagramNewTab}
+        >
+          <Icon name="instagram" class="h-4 w-4" />
+        </a>
+      </div>
     </div>
   </div>
 
-  <!-- Panneau de navigation plein écran -->
-  <div id="mobile-menu" class="hidden border-t border-white/10 bg-black/95 backdrop-blur-sm">
-    <nav class="mx-auto flex max-w-[1600px] flex-col px-6 py-10 sm:px-10" aria-label={common.mainNav}>
+  <!--
+    Menu déroulant : il glisse sous le bandeau et n'occupe qu'une partie de
+    l'écran (hauteur pilotée par le contenu, plafonnée). L'animation est
+    gérée en JS sur max-height / opacity pour rester fluide.
+  -->
+  <div
+    id="mobile-menu"
+    class="overflow-hidden border-b border-white/10 bg-black/95 opacity-0 backdrop-blur-md transition-[max-height,opacity] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]"
+    style="max-height: 0; visibility: hidden;"
+  >
+    <nav class="mx-auto flex max-w-[1600px] flex-col px-4 py-6 sm:px-10 sm:py-8" aria-label={common.mainNav}>
       {links.map((link, i) => (
         <a
           href={link.href}
-          class="group flex items-baseline gap-5 border-b border-white/10 py-5 text-paper transition hover:text-copper-light"
+          data-menu-item
+          class="group flex items-baseline gap-4 border-b border-white/10 py-4 text-paper transition-[transform,opacity,color] duration-500 ease-out hover:text-copper-light sm:py-5"
         >
           <span class="font-display text-[0.6rem] tracked text-copper">{String(i + 1).padStart(2, '0')}</span>
-          <span class="font-display text-2xl font-medium tracking-tight sm:text-3xl">{link.label}</span>
+          <span class="font-display text-xl font-medium tracking-tight sm:text-2xl">{link.label}</span>
         </a>
       ))}
       <a
         href={`${prefix}/#contact`}
-        class="mt-8 self-start border border-white/25 px-8 py-4 text-[0.65rem] font-medium tracked text-paper transition hover:border-copper hover:text-copper-light"
+        data-menu-item
+        class="mt-6 self-start border border-white/25 px-7 py-3.5 text-[0.65rem] font-medium tracked text-paper transition-[transform,opacity,border-color,color] duration-500 ease-out hover:border-copper hover:text-copper-light"
       >
         {nav.cta}
       </a>
@@ -96,20 +112,60 @@ const altHref = altPath ?? getAlternateLangPath(Astro.url, lang === 'fr' ? 'en' 
   const menu = document.getElementById('mobile-menu');
   const iconOpen = document.getElementById('icon-open');
   const iconClose = document.getElementById('icon-close');
+  const items = menu
+    ? Array.from(menu.querySelectorAll<HTMLElement>('[data-menu-item]'))
+    : [];
+
+  const resetItems = () => {
+    items.forEach((el) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(-8px)';
+      el.style.transitionDelay = '0ms';
+    });
+  };
+
+  if (menu instanceof HTMLElement) resetItems();
+
+  const setOpen = (open: boolean) => {
+    if (!(menu instanceof HTMLElement) || !toggle) return;
+
+    if (open) {
+      menu.style.visibility = 'visible';
+      // Le menu ne couvre qu'une partie de l'écran : hauteur du contenu,
+      // plafonnée à 70% de la fenêtre.
+      const target = Math.min(menu.scrollHeight, window.innerHeight * 0.7);
+      menu.style.maxHeight = target + 'px';
+      menu.style.opacity = '1';
+      items.forEach((el, i) => {
+        el.style.transitionDelay = 90 + i * 60 + 'ms';
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      });
+    } else {
+      menu.style.maxHeight = '0px';
+      menu.style.opacity = '0';
+      resetItems();
+      window.setTimeout(() => {
+        if (toggle.getAttribute('aria-expanded') === 'false') {
+          menu.style.visibility = 'hidden';
+        }
+      }, 500);
+    }
+
+    toggle.setAttribute('aria-expanded', String(open));
+    iconOpen?.classList.toggle('hidden', open);
+    iconClose?.classList.toggle('hidden', !open);
+  };
 
   toggle?.addEventListener('click', () => {
-    const isOpen = menu?.classList.toggle('hidden') === false;
-    toggle.setAttribute('aria-expanded', String(isOpen));
-    iconOpen?.classList.toggle('hidden', isOpen);
-    iconClose?.classList.toggle('hidden', !isOpen);
+    setOpen(toggle.getAttribute('aria-expanded') !== 'true');
   });
 
   menu?.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', () => {
-      menu.classList.add('hidden');
-      toggle?.setAttribute('aria-expanded', 'false');
-      iconOpen?.classList.remove('hidden');
-      iconClose?.classList.add('hidden');
-    });
+    link.addEventListener('click', () => setOpen(false));
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') setOpen(false);
   });
 </script>

@@ -18,7 +18,7 @@
   # ligne plutôt qu'en fichiers externes ; on les autorise par empreinte
   # exacte plutôt que d'ouvrir 'unsafe-inline'. À régénérer si le contenu de
   # Header.astro ou Contact.astro change (voir README.md > "CSP & scripts").
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-hb/aiQmFsFCqOjKSYi7Q8JW6QsdEpAjWyo0535bi95s=' 'sha256-L+imJqja1Rno0fdRoZdhOHUvUi/SG2b0rIc4JSlkMnQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-WwueczlYcAGYzWObO4zbHk45pTiNWFeAZ8I6fi3DX0s=' 'sha256-L+imJqja1Rno0fdRoZdhOHUvUi/SG2b0rIc4JSlkMnQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"
 </IfModule>
 
 # --- Pas de listing de dossiers -----------------------------------------

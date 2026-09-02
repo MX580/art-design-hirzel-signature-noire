@@ -74,23 +74,11 @@
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
-  /* Fines bandes noires latérales : la photographie ne touche jamais
-     le bord de l'écran, comme un tirage sous passe-partout. */
-  :root {
-    --band: 50px;
-  }
-  @media (min-width: 640px) {
-    :root {
-      --band: 80px;
-    }
-  }
   body {
     background-color: var(--color-cream);
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    padding-left: var(--band);
-    padding-right: var(--band);
     overflow-x: hidden;
   }
   ::selection {

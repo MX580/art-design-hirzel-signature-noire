@@ -12,8 +12,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <section id="savoir-faire" class="scroll-mt-24 bg-black">
-  <div class="mx-auto max-w-[1600px] px-6 py-24 sm:px-10 sm:py-32">
-    <div class="grid gap-14 lg:grid-cols-12 lg:gap-16">
+  <div class="mx-auto max-w-[1600px] px-6 py-14 sm:px-10 sm:py-32">
+    <div class="grid gap-10 sm:gap-14 lg:grid-cols-12 lg:gap-16">
       <!-- Colonne intitulé + vidéo, collante au scroll -->
       <div class="lg:col-span-5">
         <div class="lg:sticky lg:top-32">
@@ -27,7 +27,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
           <p class="mt-6 max-w-sm text-base leading-relaxed text-paper/60">
             {skills.lead}
           </p>
-          <div class="mt-10 aspect-[4/3] w-full overflow-hidden">
+          <div class="mt-8 aspect-[4/3] w-full overflow-hidden sm:mt-10">
             <video
               class="h-full w-full object-cover opacity-80"
               autoplay
@@ -46,7 +46,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
       <!-- Liste des savoir-faire -->
       <div class="lg:col-span-6 lg:col-start-7">
         {skills.items.map((item, i) => (
-          <div class="group border-t border-white/10 py-8 last:border-b sm:py-10">
+          <div class="group border-t border-white/10 py-6 last:border-b sm:py-10">
             <div class="flex items-baseline gap-6">
               <span class="font-display text-[0.6rem] tracked text-copper">{String(i + 1).padStart(2, '0')}</span>
               <div>
