@@ -109,7 +109,7 @@ export const ui = {
     },
     contact: {
       kicker: 'Discutons',
-      title: 'Une idée en tête ? Parlons-en',
+      title: 'Une idée en tête ?\nParlons-en',
       lead: "Ce site est une vitrine du travail de David — il ne permet pas de commander en ligne. Pour toute question, demande de devis ou simple curiosité, écrivez-lui directement.",
       infoTitle: 'Coordonnées',
       email: 'contact@artdesignbyhirzel.ch',

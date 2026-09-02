@@ -24,7 +24,7 @@ const links = [
 const altHref = altPath ?? getAlternateLangPath(Astro.url, lang === 'fr' ? 'en' : 'fr');
 ---
 
-<header class="fixed inset-x-0 top-0 z-50 bg-gradient-to-b from-black/85 to-transparent">
+<header class="fixed top-0 right-[var(--band)] left-[var(--band)] z-50 bg-gradient-to-b from-black/85 to-transparent">
   <div class="relative mx-auto flex max-w-[1600px] items-center justify-between px-6 py-6 sm:px-10">
     <button
       id="menu-toggle"
@@ -43,9 +43,10 @@ const altHref = altPath ?? getAlternateLangPath(Astro.url, lang === 'fr' ? 'en' 
 
     <a
       href={`${prefix}/`}
-      class="absolute left-1/2 -translate-x-1/2 font-display text-[0.7rem] font-semibold tracked text-paper sm:text-sm"
+      class="absolute left-1/2 -translate-x-1/2 text-center font-display text-base leading-[1.15] font-semibold tracking-[0.12em] text-paper uppercase sm:text-2xl sm:leading-none sm:tracking-[0.14em] sm:whitespace-nowrap lg:text-4xl"
     >
-      Art Design by Hirzel
+      <span class="block sm:inline">Art Design</span>{' '}
+      <span class="block sm:inline">by Hirzel</span>
     </a>
 
     <div class="flex items-center gap-6">
