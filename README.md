@@ -82,3 +82,25 @@ Tous les textes (FR et EN) sont centralisés dans **[src/i18n/ui.ts](src/i18n/ui
 ## Pages légales
 
 `Mentions légales` et `Politique de confidentialité` sont pré-remplies avec la structure attendue en Suisse (obligation d'impressum, conformité nLPD) mais contiennent des champs à compléter (adresse, éventuel numéro IDE). À faire relire par David — ou un juriste — avant mise en ligne définitive.
+
+## Vidéos d'ambiance (proposition "Signature Noire")
+
+Trois vidéos placeholder sont utilisées dans `public/videos/` :
+
+| Fichier | Où | Taille |
+|---|---|---|
+| `atelier-rabot.mp4` | Fond de la bannière d'accueil | 7.1 Mo |
+| `atelier-outils.mp4` | Colonne "Savoir-faire" | 2.1 Mo |
+| `atelier-poncage.mp4` | Fond de la section Contact | 2.1 Mo |
+
+**Origine** : banque d'images Pexels, licence libre (usage commercial autorisé,
+attribution non requise, modification autorisée).
+
+**À remplacer** par les vidéos tournées par David. Il suffit de déposer les
+nouveaux fichiers dans `public/videos/` en conservant les mêmes noms — aucun
+code à modifier. Conseils pour un rendu optimal :
+
+- format MP4 (H.264), sans son (les vidéos sont muettes et jouées en boucle) ;
+- viser 8 à 15 secondes, en plan fixe ou mouvement très lent ;
+- 1280×720 suffit largement (le voile sombre masque les détails fins) ;
+- garder chaque fichier sous ~8 Mo pour un chargement rapide sur mobile.
