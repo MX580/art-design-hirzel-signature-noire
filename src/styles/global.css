@@ -77,11 +77,11 @@
   /* Fines bandes noires latérales : la photographie ne touche jamais
      le bord de l'écran, comme un tirage sous passe-partout. */
   :root {
-    --band: 10px;
+    --band: 50px;
   }
   @media (min-width: 640px) {
     :root {
-      --band: 16px;
+      --band: 80px;
     }
   }
   body {

@@ -13,16 +13,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 <section id="savoir-faire" class="scroll-mt-24 bg-black">
   <div class="mx-auto max-w-[1600px] px-6 py-24 sm:px-10 sm:py-32">
-    <div class="flex items-center gap-4">
-      <span class="h-px w-12 bg-copper" aria-hidden="true"></span>
-      <span class="text-[0.6rem] font-medium tracked text-copper-light">03 — {skills.kicker}</span>
-    </div>
-
-    <div class="mt-12 grid gap-14 lg:grid-cols-12 lg:gap-16">
-      <!-- Colonne vidéo, collante au scroll -->
+    <div class="grid gap-14 lg:grid-cols-12 lg:gap-16">
+      <!-- Colonne intitulé + vidéo, collante au scroll -->
       <div class="lg:col-span-5">
-        <div class="lg:sticky lg:top-28">
-          <h2 class="font-display text-3xl leading-[1.02] font-medium tracking-[-0.03em] text-paper sm:text-5xl">
+        <div class="lg:sticky lg:top-32">
+          <div class="flex items-center gap-4">
+            <span class="h-px w-12 bg-copper" aria-hidden="true"></span>
+            <span class="text-[0.6rem] font-medium tracked text-copper-light">03 — {skills.kicker}</span>
+          </div>
+          <h2 class="mt-8 font-display text-3xl leading-[1.02] font-medium tracking-[-0.03em] text-paper sm:text-5xl">
             {skills.title}
           </h2>
           <p class="mt-6 max-w-sm text-base leading-relaxed text-paper/60">
