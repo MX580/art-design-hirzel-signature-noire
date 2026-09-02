@@ -20,49 +20,77 @@ const gallery = t('gallery');
 const images = [tableBoisMetal, plancheEndGrain, planchesDuo, braseroFeu, structureAcier, mainsFinition];
 ---
 
-<section id="realisations" class="scroll-mt-24 border-b border-ink">
-  <div class="mx-auto max-w-[1400px] px-5 py-16 sm:px-8 sm:py-20">
-    <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-      <div class="max-w-xl">
-        <span class="text-xs font-semibold tracking-[0.14em] text-copper uppercase">04 — {gallery.kicker}</span>
-        <h2 class="mt-3 font-display text-3xl leading-[1.02] font-extrabold tracking-tight text-ink sm:text-4xl">
-          {gallery.title}
-        </h2>
-        <p class="mt-4 text-base leading-relaxed text-ink-soft">
-          {gallery.lead}
-        </p>
-      </div>
-
-      <a
-        href="https://www.instagram.com/artdesignbyhirzel/"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex shrink-0 items-center gap-2 self-start border border-ink px-5 py-3 text-xs font-semibold tracking-[0.1em] text-ink uppercase transition hover:border-copper hover:text-copper"
-      >
-        <Icon name="instagram" class="h-4 w-4" />
-        {gallery.instagramCta}
-      </a>
+<section id="realisations" class="scroll-mt-24 bg-black">
+  <div class="mx-auto max-w-[1600px] px-6 pt-24 pb-14 sm:px-10 sm:pt-32">
+    <div class="flex items-center gap-4">
+      <span class="h-px w-12 bg-copper" aria-hidden="true"></span>
+      <span class="text-[0.6rem] font-medium tracked text-copper-light">04 — {gallery.kicker}</span>
     </div>
-
-    <div class="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 border-t border-ink pt-10 sm:grid-cols-3">
-      {gallery.items.map((item, i) => (
-        <figure>
-          <div class="relative aspect-[4/5] w-full overflow-hidden border border-border">
-            <Image
-              src={images[i]}
-              alt={item.alt}
-              class="h-full w-full object-cover grayscale-[35%] contrast-[1.08] transition duration-500 hover:grayscale-0"
-              width={480}
-              height={600}
-              loading={i < 3 ? 'eager' : 'lazy'}
-            />
-          </div>
-          <figcaption class="mt-3 flex items-baseline gap-2">
-            <span class="font-mono text-xs text-copper">{String(i + 1).padStart(2, '0')}</span>
-            <span class="text-xs font-medium tracking-wide text-ink-soft uppercase">{item.caption}</span>
-          </figcaption>
-        </figure>
-      ))}
+    <div class="mt-12 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+      <h2 class="max-w-2xl font-display text-3xl leading-[1.02] font-medium tracking-[-0.03em] text-paper sm:text-5xl">
+        {gallery.title}
+      </h2>
+      <p class="max-w-sm text-sm leading-relaxed text-paper/55">
+        {gallery.lead}
+      </p>
     </div>
+  </div>
+
+  <!-- Deux grandes tuiles plein cadre, façon maison de luxe -->
+  <div class="grid gap-px bg-white/10 sm:grid-cols-2">
+    {gallery.items.slice(0, 2).map((item, i) => (
+      <figure class="group relative aspect-[4/3] overflow-hidden bg-black sm:aspect-[16/11]">
+        <Image
+          src={images[i]}
+          alt={item.alt}
+          class="h-full w-full object-cover opacity-80 transition duration-[1200ms] ease-out group-hover:scale-[1.03] group-hover:opacity-100"
+          width={1100}
+          height={760}
+          loading="eager"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" aria-hidden="true"></div>
+        <figcaption class="absolute inset-x-0 bottom-0 p-7 sm:p-10">
+          <span class="block text-[0.6rem] font-medium tracked text-copper">{String(i + 1).padStart(2, '0')}</span>
+          <span class="mt-3 block font-display text-xl leading-tight font-medium tracking-tight text-paper sm:text-3xl">
+            {item.caption}
+          </span>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+
+  <!-- Grille secondaire -->
+  <div class="mt-px grid gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
+    {gallery.items.slice(2).map((item, i) => (
+      <figure class="group relative aspect-[3/4] overflow-hidden bg-black">
+        <Image
+          src={images[i + 2]}
+          alt={item.alt}
+          class="h-full w-full object-cover opacity-70 transition duration-[1200ms] ease-out group-hover:scale-[1.03] group-hover:opacity-100"
+          width={700}
+          height={930}
+          loading="lazy"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/15 to-transparent" aria-hidden="true"></div>
+        <figcaption class="absolute inset-x-0 bottom-0 p-6">
+          <span class="block text-[0.55rem] font-medium tracked text-copper">{String(i + 3).padStart(2, '0')}</span>
+          <span class="mt-2 block font-display text-sm leading-snug font-medium text-paper">
+            {item.caption}
+          </span>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+
+  <div class="mx-auto max-w-[1600px] px-6 py-16 sm:px-10 sm:py-20">
+    <a
+      href="https://www.instagram.com/artdesignbyhirzel/"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center gap-3 border-b border-white/25 pb-2 text-[0.65rem] font-medium tracked text-paper transition hover:border-copper hover:text-copper-light"
+    >
+      <Icon name="instagram" class="h-4 w-4" />
+      {gallery.instagramCta}
+    </a>
   </div>
 </section>

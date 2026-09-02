@@ -9,7 +9,7 @@ const SITE_URL = 'https://www.artdesignbyhirzel.ch';
 // ⚠️ "base" ne sert que pour l'aperçu temporaire sur GitHub Pages (le site y
 // est servi depuis un sous-dossier /nom-du-repo/). Supprimer cette ligne
 // avant le déploiement définitif sur Infomaniak (servi depuis la racine /).
-const GITHUB_PAGES_BASE = '/art-design-hirzel-editorial-suisse';
+const GITHUB_PAGES_BASE = '/art-design-hirzel-signature-noire';
 
 export default defineConfig({
   site: SITE_URL,

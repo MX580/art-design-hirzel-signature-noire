@@ -5,19 +5,19 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <BaseLayout lang="fr" title="Page introuvable — Art Design by Hirzel">
-  <section class="flex min-h-[60vh] items-center justify-center border-b border-ink px-5 py-20 text-center sm:px-8">
+  <section class="flex min-h-[85svh] items-center justify-center px-6 text-center sm:px-10">
     <div class="max-w-lg">
-      <span class="font-mono text-xs font-semibold tracking-[0.14em] text-copper uppercase">Erreur 404</span>
-      <h1 class="mt-3 font-display text-4xl font-extrabold tracking-tight text-ink sm:text-5xl">Page introuvable</h1>
-      <p class="mt-4 text-base leading-relaxed text-ink-soft">
+      <span class="text-[0.6rem] font-medium tracked text-copper">Erreur 404</span>
+      <h1 class="mt-5 font-display text-4xl font-medium tracking-[-0.03em] text-paper sm:text-6xl">Page introuvable</h1>
+      <p class="mt-6 text-base leading-relaxed text-paper/55">
         Cette page n'existe pas ou plus.
-        <span class="block text-sm text-ink-faint">(This page could not be found.)</span>
+        <span class="mt-1 block text-sm text-paper/35">(This page could not be found.)</span>
       </p>
-      <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
-        <a href={`${base}/`} class="border border-ink bg-ink px-6 py-3 text-xs font-semibold tracking-[0.12em] text-paper uppercase transition hover:border-copper hover:bg-copper">
+      <div class="mt-12 flex flex-wrap items-center justify-center gap-5">
+        <a href={`${base}/`} class="border border-paper/80 px-9 py-4 text-[0.65rem] font-medium tracked text-paper transition hover:border-copper hover:bg-copper hover:text-black">
           Retour à l'accueil
         </a>
-        <a href={`${base}/en/`} class="border border-ink px-6 py-3 text-xs font-semibold tracking-[0.12em] text-ink uppercase transition hover:border-copper hover:text-copper">
+        <a href={`${base}/en/`} class="border-b border-transparent pb-1 text-[0.65rem] font-medium tracked text-paper/60 transition hover:border-copper hover:text-copper-light">
           English homepage
         </a>
       </div>

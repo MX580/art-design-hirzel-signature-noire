@@ -24,27 +24,34 @@ const links = [
 const altHref = altPath ?? getAlternateLangPath(Astro.url, lang === 'fr' ? 'en' : 'fr');
 ---
 
-<header class="sticky top-0 z-50 border-b border-ink bg-cream/95 backdrop-blur-sm">
-  <div class="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-5 py-4 sm:px-8">
-    <a href={`${prefix}/`} class="shrink-0">
-      <span class="font-display text-base font-extrabold tracking-tight text-ink sm:text-lg">
-        ART DESIGN <span class="font-normal text-ink-soft">BY HIRZEL</span>
+<header class="fixed inset-x-0 top-0 z-50 bg-gradient-to-b from-black/85 to-transparent">
+  <div class="relative mx-auto flex max-w-[1600px] items-center justify-between px-6 py-6 sm:px-10">
+    <button
+      id="menu-toggle"
+      type="button"
+      class="flex items-center gap-3 text-paper transition hover:text-copper-light"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label={common.openMenu}
+    >
+      <span id="icon-open" class="flex flex-col gap-[5px]">
+        <span class="block h-px w-6 bg-current"></span>
+        <span class="block h-px w-6 bg-current"></span>
       </span>
+      <Icon name="close" class="hidden h-5 w-5" id="icon-close" />
+    </button>
+
+    <a
+      href={`${prefix}/`}
+      class="absolute left-1/2 -translate-x-1/2 font-display text-[0.7rem] font-semibold tracked text-paper sm:text-sm"
+    >
+      Art Design by Hirzel
     </a>
 
-    <nav class="hidden items-center gap-9 lg:flex" aria-label={common.mainNav}>
-      {links.map((link, i) => (
-        <a href={link.href} class="group flex items-center gap-2 text-xs font-semibold tracking-[0.12em] text-ink uppercase">
-          <span class="text-copper">0{i + 1}</span>
-          <span class="border-b border-transparent group-hover:border-ink">{link.label}</span>
-        </a>
-      ))}
-    </nav>
-
-    <div class="hidden items-center gap-6 lg:flex">
+    <div class="flex items-center gap-6">
       <a
         href={altHref}
-        class="text-xs font-semibold tracking-[0.12em] text-ink-soft uppercase hover:text-ink"
+        class="text-[0.65rem] font-medium tracked text-paper/70 transition hover:text-copper-light"
         aria-label={common.langSwitchLabel}
       >
         {common.langSwitch}
@@ -53,57 +60,29 @@ const altHref = altPath ?? getAlternateLangPath(Astro.url, lang === 'fr' ? 'en' 
         href="https://www.instagram.com/artdesignbyhirzel/"
         target="_blank"
         rel="noopener noreferrer"
-        class="text-ink-soft transition hover:text-copper"
+        class="text-paper/70 transition hover:text-copper-light"
         aria-label={common.instagramNewTab}
       >
-        <Icon name="instagram" class="h-5 w-5" />
-      </a>
-      <a
-        href={`${prefix}/#contact`}
-        class="border border-ink bg-ink px-5 py-2.5 text-xs font-semibold tracking-[0.12em] text-paper uppercase transition hover:border-copper hover:bg-copper"
-      >
-        {nav.cta}
+        <Icon name="instagram" class="h-4 w-4" />
       </a>
     </div>
-
-    <button
-      id="menu-toggle"
-      type="button"
-      class="flex h-9 w-9 items-center justify-center text-ink lg:hidden"
-      aria-expanded="false"
-      aria-controls="mobile-menu"
-      aria-label={common.openMenu}
-    >
-      <Icon name="menu" class="h-5 w-5" id="icon-open" />
-      <Icon name="close" class="hidden h-5 w-5" id="icon-close" />
-    </button>
   </div>
 
-  <div id="mobile-menu" class="hidden border-t border-ink bg-cream lg:hidden">
-    <nav class="flex flex-col gap-1 px-5 py-4" aria-label={common.mobileNav}>
+  <!-- Panneau de navigation plein écran -->
+  <div id="mobile-menu" class="hidden border-t border-white/10 bg-black/95 backdrop-blur-sm">
+    <nav class="mx-auto flex max-w-[1600px] flex-col px-6 py-10 sm:px-10" aria-label={common.mainNav}>
       {links.map((link, i) => (
-        <a href={link.href} class="flex items-center gap-3 border-b border-border py-3 text-sm font-semibold tracking-wide text-ink uppercase">
-          <span class="text-copper">0{i + 1}</span>
-          {link.label}
+        <a
+          href={link.href}
+          class="group flex items-baseline gap-5 border-b border-white/10 py-5 text-paper transition hover:text-copper-light"
+        >
+          <span class="font-display text-[0.6rem] tracked text-copper">{String(i + 1).padStart(2, '0')}</span>
+          <span class="font-display text-2xl font-medium tracking-tight sm:text-3xl">{link.label}</span>
         </a>
       ))}
-      <div class="mt-3 flex items-center gap-5">
-        <a href={altHref} class="text-xs font-semibold tracking-[0.12em] text-ink-soft uppercase">
-          {common.langSwitch}
-        </a>
-        <a
-          href="https://www.instagram.com/artdesignbyhirzel/"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-ink-soft"
-          aria-label={common.instagramNewTab}
-        >
-          <Icon name="instagram" class="h-5 w-5" />
-        </a>
-      </div>
       <a
         href={`${prefix}/#contact`}
-        class="mt-4 border border-ink bg-ink px-5 py-3 text-center text-xs font-semibold tracking-[0.12em] text-paper uppercase"
+        class="mt-8 self-start border border-white/25 px-8 py-4 text-[0.65rem] font-medium tracked text-paper transition hover:border-copper hover:text-copper-light"
       >
         {nav.cta}
       </a>
