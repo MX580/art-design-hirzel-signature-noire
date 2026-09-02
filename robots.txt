@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.artdesignbyhirzel.ch/sitemap-index.xml

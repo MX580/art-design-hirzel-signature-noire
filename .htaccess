@@ -1,0 +1,50 @@
+# Art Design by Hirzel — configuration Apache (hébergement Infomaniak)
+
+# --- HTTPS obligatoire -------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# --- En-têtes de sécurité ------------------------------------------------
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+  # Les deux hachages sha256 correspondent aux petits scripts inline générés
+  # par Astro (menu mobile + formulaire de contact). Astro les inclut en
+  # ligne plutôt qu'en fichiers externes ; on les autorise par empreinte
+  # exacte plutôt que d'ouvrir 'unsafe-inline'. À régénérer si le contenu de
+  # Header.astro ou Contact.astro change (voir README.md > "CSP & scripts").
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-WwueczlYcAGYzWObO4zbHk45pTiNWFeAZ8I6fi3DX0s=' 'sha256-L+imJqja1Rno0fdRoZdhOHUvUi/SG2b0rIc4JSlkMnQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'"
+</IfModule>
+
+# --- Pas de listing de dossiers -----------------------------------------
+Options -Indexes
+
+# --- Interdit l'accès direct aux fichiers cachés (.env, .git, etc.) -----
+<FilesMatch "^\.">
+  Require all denied
+</FilesMatch>
+
+# --- Mise en cache des fichiers statiques optimisés par Astro -----------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/avif "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/x-icon "access plus 1 year"
+  ExpiresByType video/mp4 "access plus 1 year"
+</IfModule>
+
+# --- Compression -----------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>
+
+ErrorDocument 404 /404.html
